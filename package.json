@@ -1,12 +1,16 @@
 {
-  "name": "app",
-  "private": "true",
+  "name": "learn_sphere",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/shrikaranks-786/learn_sphere.git",
+  "author": "shrikaran ks <shrikaranksise2024@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build:css": "tailwindcss build app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css"
+  },
   "dependencies": {
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
-  },
-  "scripts": {
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   }
 }

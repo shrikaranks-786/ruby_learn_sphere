@@ -6,7 +6,7 @@
   <% content_for :title, "Posts" %>
 
 
-  <div id="posts" class="min-w-full">
+  <div id="posts" class="min-w-full flex flex-wrap justify-center gap-14 pb-6">
     <% @posts.each do |post| %>
       <%= render post %>
     <% end %>

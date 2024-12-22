@@ -1,9 +1,11 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
-    './app/views/**/*.html.erb',
+    './public/*.html',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/assets/stylesheets/**/*.css'
+    './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
     extend: {
@@ -151,4 +153,4 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
   ]
-};
+}
