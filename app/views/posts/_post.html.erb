@@ -1,6 +1,10 @@
 <div id="<%= dom_id post %>" class="max-w-sm rounded-b overflow-hidden shadow-lg hover:bg-voodoo-100">
   <%= link_to post, class: "flex flex-col h-full" do %>
-    <%= image_tag("https://via.placeholder.com/300", alt: "Placeholder Image", class: "w-full") %>
+    <% if post.image.present? %>
+      <%= image_tag post.image, class: "w-full rounded-t"%>
+    <% else %>
+      <%= image_tag("https://via.placeholder.com/300", alt: "Placeholder Image", class: "w-full") %>
+    <% end %>
     <div class="px-6 py-4 flex flex-col justify-between grow">
       <div>
         <div class="flex items-center justify-between font-bold text-xl mb-2">
