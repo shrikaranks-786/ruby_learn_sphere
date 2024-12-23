@@ -1,4 +1,3 @@
 web: rails server
 css: rails tailwindcss:watch
 css: yarn build:css --watch
-assets: rails assets:precompile

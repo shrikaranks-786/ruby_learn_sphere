@@ -8,6 +8,21 @@
       <%= video_tag @post.lessons.first.video, controls: true , class: "w-full rounded mb-6"%>
     <% end %>
 
-    <%= link_to "Back to posts", posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="border p-6 rounded">
+      <div class="flex justify-start items-center flex-wrap w-full mb-2">
+        <% @post.categories.each do |category|%>
+          <div class="bg-amaranth-100 text-amaranth-800 text-sm font-semibold mt-2 mr-2 px-2.5 py-0.5 roundedgit">
+            <%= category.name%>
+          </div>
+        <% end %>
+      </div>
+      <span> <%=@post.lessons.count%> <%= "content".pluralize(@post.lessons.count)%></span>
+      <h1 class="text-2xl font-bold"> <%=@post.title%></h1>
+      <p class="text-gray-500 mt-2"><%=@post.description%></p>
+    </div>
+
+    <div>
+      <%= render "sidebar"%>
+    </div>
   </div>
 </div>
