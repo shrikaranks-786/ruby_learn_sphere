@@ -1,0 +1,18 @@
+<div class="w-full">
+    <% post.lessons.order(:position).each do |lesson|%>
+        <%if lesson.paid %>
+            <div class="border p-6 hover:bg-gray-200">
+                <div>
+                    <%= icon("fa-solid", "lock" , class: "mr-2 text-gray-600")%><span class="font-light">
+                    <%= lesson.title%></span>
+                </div>
+            </div>
+        <% else %>
+            <%= link_to post_lesson_path(post,lesson) do%>
+                <div class="border p-6 hover:bg-gray-200 <%= @lesson.id == lesson.id ? 'bg-red-200' : ''%>">
+                    <span class="font-light"><%= lesson.title%><span>
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>
