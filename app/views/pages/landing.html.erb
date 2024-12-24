@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embark on Your Learning Journey | Learn Sphere</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 font-sans">
+  <div class="flex flex-col items-center justify-center min-h-screen px-4">
+    <div class="text-center max-w-3xl">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+        Unlock Your Potential with Learn Sphere
+      </h1>
+      <p class="text-xl md:text-2xl mb-8 text-gray-700">
+        Embark on a transformative journey of knowledge, skills, and personal growth.
+      </p>
+      <div class="space-y-4 md:space-y-0 md:space-x-4">
+        <%= link_to "Begin Your Adventure", new_user_registration_path, class: "inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold px-8 py-3 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg" %>
+        <%= link_to "Return to Your Quest", new_user_session_path, class: "inline-block bg-white text-gray-800 font-bold px-8 py-3 rounded-full border-2 border-gray-300 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-blue-500" %>
+      </div>
+    </div>
+    <div class="mt-16 text-center">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Discover a World of Possibilities</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-2 text-blue-600">Expert-Led Courses</h3>
+          <p class="text-gray-600">Learn from industry professionals and thought leaders.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-2 text-purple-600">Interactive Learning</h3>
+          <p class="text-gray-600">Engage with hands-on projects and real-world applications.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-2 text-green-600">Community Support</h3>
+          <p class="text-gray-600">Connect with peers and mentors on your learning journey.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center py-4 text-gray-600">
+    <p>&copy; <%= Time.current.year %> Learn Sphere. All rights reserved.</p>
+  </footer>
+</body>
+</html>
