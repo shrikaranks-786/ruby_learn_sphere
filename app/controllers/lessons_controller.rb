@@ -1,6 +1,6 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: %i[ show edit update destroy ]
-
+  before_action :set_post
   # GET /lessons or /lessons.json
   def index
     @lessons = Lesson.all
@@ -8,6 +8,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1 or /lessons/1.json
   def show
+    @completed_lessons = current_user.lesson_user.where(completed:true).pluck(:lesson_id)
     @post = @lesson.post
   end
 
@@ -37,14 +38,13 @@ class LessonsController < ApplicationController
 
   # PATCH/PUT /lessons/1 or /lessons/1.json
   def update
-    respond_to do |format|
-      if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: "Lesson was successfully updated." }
-        format.json { render :show, status: :ok, location: @lesson }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
-      end
+    @lesson_user = LessonUser.find_or_create_by(user: current_user, lesson: @lesson)
+    @lesson_user.update!(completed: true)
+    next_lesson = @post.lessons.where("position > ?",@lesson.position).order(:position).first
+    if next_lesson
+      redirect_to post_lesson_path(@post, next_lesson)
+    else
+      redirect_to post_path(@post), notice: "You've completed the Post"
     end
   end
 
@@ -60,6 +60,9 @@ class LessonsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_post
+          @post = Post.find(params[:post_id])
+    end
     def set_lesson
       @lesson = Lesson.find(params.expect(:id))
     end
