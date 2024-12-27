@@ -8,4 +8,24 @@ class Post < ApplicationRecord
   def first_lesson
     self.lessons.order(:position).first
   end
+
+  def next_lesson(current_user)
+    if current_user.blank?
+      return self.lessons.order(:position).first
+    end
+
+    completed_lessons = current_user.lesson_user.includes(:lesson).where(completed: true).where(lessons: { post_id: self.id })
+    started_lessons = current_user.lesson_user.includes(:lesson).where(completed: false).where(lesson: { post_id: self.id }).order(:position)
+
+    if started_lessons.any?
+      return started_lessons.first.lesson
+    end
+
+    lessons = self.lessons.where.not(id: completed_lessons.pluck(lesson_id)).order(:position)
+    if lessons.any
+      lessons.first
+    else
+      return self.lessons.order(:position).first
+    end
+  end
 end
