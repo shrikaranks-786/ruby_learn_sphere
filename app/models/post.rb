@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :lessons
   has_many :post_users
   has_and_belongs_to_many :categories
+  has_many :users, through: :post_users
 
   def first_lesson
     self.lessons.order(:position).first

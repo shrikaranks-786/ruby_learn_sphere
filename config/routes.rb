@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     resources :lessons
   end
 
+  resources :posts do
+    resources :lessons do
+      post 'unlock_course', on: :member  # Add this line to define the unlock_course route
+    end
+  end
+
   authenticated :admin_user do
     root to: "admin#index", as: :admin_root
   end

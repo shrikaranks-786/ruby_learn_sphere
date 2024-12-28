@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_27_095156) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_28_084530) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_095156) do
     t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "unlocked", default: false
     t.index ["lesson_id"], name: "index_lesson_users_on_lesson_id"
     t.index ["user_id"], name: "index_lesson_users_on_user_id"
   end
@@ -84,6 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_095156) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.boolean "unlocked", default: false
     t.index ["post_id"], name: "index_lessons_on_post_id"
   end
 
@@ -104,6 +106,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_095156) do
     t.boolean "paid"
     t.string "stripe_price_id"
     t.text "premium_description"
+    t.boolean "paid_for_course"
   end
 
   create_table "users", force: :cascade do |t|

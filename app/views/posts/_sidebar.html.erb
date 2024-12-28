@@ -33,30 +33,40 @@
             </div>
         </div>
     </div>
-            <% if @post.paid %>
-                <div class="mt-6 flex justify-center items-center w-full">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
-                        <div class="bg-red-500 p-4">
-                            <h2 class="text-white-50 text-2xl font-bold">Get more content</h2>
-                        </div>
-                        <div class="p-4">
-                            <%if user_signed_in? %>
-                                <p class="text-gray-700 text-base mb-4">
-                                    Unlock more content by purchasing
-                                </p>
-                                <button class="bg-red-600  text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150">
-                                    Unlock full content
-                                </button>
-                            <% else %>
-                                <p class="text-gray-700 text-base mb-4">
-                                    sign up for free today and start exploring
-                                </p>
-                                <%= link_to "Sign up", new_user_registration_path, class: "bg-green-300 hover:bg-green-500 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150"%>
-                            <% end %>
-                        </div>
-                    </div>
+    <% if @post.paid_for_course %>
+        <div class="mt-6 flex justify-center items-center w-full">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
+                <div class="bg-green-500 p-4">
+                    <h2 class="text-white-50 text-2xl font-bold">Course Unlocked!</h2>
                 </div>
-            <% end %>
+                <div class="p-4">
+                    <p class="text-gray-700 text-base mb-4">
+                        You now have access to all lessons in this course.
+                    </p>
+                    <%= link_to "Start Learning", post_path(@post), class: "bg-blue-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
+                </div>
+            </div>
         </div>
-    </div>
+    <% else %>
+        <div class="mt-6 flex justify-center items-center w-full">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
+                <div class="bg-red-500 p-4">
+                    <h2 class="text-white-50 text-2xl font-bold">Get more content</h2>
+                </div>
+                <div class="p-4">
+                    <% if user_signed_in? %>
+                        <p class="text-gray-700 text-base mb-4">
+                            Unlock more content by purchasing
+                        </p>
+                        <%= button_to "Unlock full content", unlock_course_post_lesson_path(post_id: @post.id, id: @post.id), method: :post, class: "bg-red-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
+                    <% else %>
+                        <p class="text-gray-700 text-base mb-4">
+                            Sign up for free today and start exploring
+                        </p>
+                        <%= link_to "Sign up", new_user_registration_path, class: "bg-green-300 hover:bg-green-500 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
 </div>

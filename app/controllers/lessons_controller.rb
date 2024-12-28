@@ -58,6 +58,25 @@ class LessonsController < ApplicationController
     end
   end
 
+  # POST /posts/:post_id/lessons/:id/unlock_course
+  def unlock_course
+    @post = Post.find(params[:post_id])
+
+    # Create or update the user's access to the post
+    current_user.posts << @post unless current_user.posts.include?(@post)
+
+    # Update the paid_for_course attribute
+    @post.update(paid_for_course: true)
+
+    # Reload the post to get the updated attributes
+    @post.reload
+
+    respond_to do |format|
+      format.html { redirect_to post_path(@post), notice: "Course unlocked successfully." }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
