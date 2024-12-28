@@ -9,6 +9,9 @@
       <div>
         <div class="flex items-center justify-between font-bold text-xl mb-2">
           <%= post.title %>
+          <% if post.paid_for_course? %>
+            <span class="ml-2 text-white-50 text-xs px-2 py-1 eounded bg-green-500">Unlocked</span>
+          <% end %>
         </div>
         <p class="text-sm font-extralight">
           karan

@@ -1,6 +1,6 @@
 <div class="w-full">
     <% post.lessons.order(:position).each do |lesson|%>
-        <%if lesson.paid && paid_for_course %>
+        <%if lesson.paid && !@post.paid_for_course %>
             <div class="border p-6 hover:bg-gray-200">
                 <div>
                     <%= icon("fa-solid", "lock" , class: "mr-2 text-gray-600")%><span class="font-light">
