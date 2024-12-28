@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   has_one_attached :image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [100,100]
+    attachable.variant :thumb, resize_to_limit: [ 100, 100 ]
   end
   has_many :lessons
   has_many :post_users
@@ -22,11 +22,11 @@ class Post < ApplicationRecord
       return started_lessons.first.lesson
     end
 
-    lessons = self.lessons.where.not(id: completed_lessons.pluck(lesson_id)).order(:position)
-    if lessons.any
+    lessons = self.lessons.where.not(id: completed_lessons.pluck(:lesson_id)).order(:position)
+    if lessons.any?
       lessons.first
     else
-      return self.lessons.order(:position).first
+      self.lessons.order(:position).first
     end
   end
 end
