@@ -1,0 +1,72 @@
+<header class="bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg">
+  <!-- Desktop Header -->
+  <div class="hidden sm:block container mx-auto px-4 py-4">
+    <div class="flex justify-between items-center">
+      <nav class="flex items-center space-x-4">
+        <%= link_to "Dashboard", root_path, class: "text-white font-medium hover:bg-white hover:text-indigo-600 px-3 py-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105" %>
+        <%= link_to "Posts", admin_posts_path, class: "text-white font-medium hover:bg-white hover:text-indigo-600 px-3 py-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105" %>
+        <%= link_to "Users", root_path, class: "text-white font-medium hover:bg-white hover:text-indigo-600 px-3 py-2 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105" %>
+      </nav>
+      
+      <%= link_to root_path, class: "flex-shrink-0 transition-transform duration-300 ease-in-out transform hover:scale-110" do %>
+        <%= image_tag "logo.png", class: "h-16 w-auto", alt: "Logo" %>
+      <% end %>
+      
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, data: { 'turbo_method': :delete, 'turbo_confirm': "Are you sure?" }, class: "bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg" %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Header -->
+  <div class="sm:hidden bg-gradient-to-r from-purple-600 to-indigo-600">
+    <div class="px-4 py-3 flex justify-between items-center">
+      <%= link_to root_path, class: "transition-transform duration-300 ease-in-out transform hover:scale-110" do %>
+        <%= image_tag "logo.png", class: "h-10 w-auto", alt: "Logo" %>
+      <% end %>
+      
+      <button id="mobile-menu-button" class="text-white hover:bg-white hover:text-indigo-600 p-2 rounded-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-white" aria-label="Toggle menu">
+        <svg id="menu-icon" class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="close-icon" class="hidden h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden px-2 pt-2 pb-4">
+      <div class="flex flex-col space-y-2">
+        <%= link_to "Dashboadr", root_path, class: "block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:text-indigo-600 transition-all duration-300 ease-in-out" %>
+        <%= link_to "Posts", admin_posts_path, class: "block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:text-indigo-600 transition-all duration-300 ease-in-out" %>
+        <%= link_to "Users", root_path, class: "block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-white hover:text-indigo-600 transition-all duration-300 ease-in-out" %>
+        <% if user_signed_in? %>
+          <%= link_to "Sign Out", destroy_user_session_path, data: { 'turbo_method': :delete, 'turbo_confirm': "Are you sure?" }, class: "block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-pink-500 transition-all duration-300 ease-in-out" %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-green-500 transition-all duration-300 ease-in-out" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('turbo:load', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    if (mobileMenuButton && mobileMenu && menuIcon && closeIcon) {
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

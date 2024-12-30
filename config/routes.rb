@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins, skip: [ :registrations ]
+  devise_for :admins, skip: [:registrations]
   devise_for :users
 
   resources :posts do
@@ -8,16 +8,21 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :lessons do
-      post 'unlock_course', on: :member  # Add this line to define the unlock_course route
+      post 'unlock_course', on: :member
     end
   end
 
-  authenticated :admin_user do
+  # Ensure /admin route points to the correct controller/action
+  authenticated :admin do
     root to: "admin#index", as: :admin_root
+    get "/admin", to: "admin#index", as: :admin_dashboard
+  end
+
+  namespace :admin do
+      resources :posts
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
-  get "admin" => "admin#index"
 
   # Landing page for unauthenticated users
   root to: "pages#landing"
