@@ -1,4 +1,4 @@
-<%= form_with(model: admin_post) do |form| %>
+<%= form_with(model: [:admin, admin_post]) do |form| %>
   <% if admin_post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(admin_post.errors.count, "error") %> prohibited this admin_post from being saved:</h2>
@@ -11,7 +11,33 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.submit %>
+  <div class="flex flex-col">
+    <label class="text-sm" for="name">Title</label>
+    <%= form.text_field :title, class: "rounded border-gray-200", id: "title", placeholder: "post title" %>
+  </div>
+
+  <div class="flex flex-col mt-4"> 
+    <label class="text-sm" for="name">Description</label>
+    <%= form.text_area :description, class: "rounded border-gray-200", id: "description", placeholder: "post description" %>
+  </div>
+  
+  <div class="flex flex-col mt-4">
+    <%= admin_post.image.present? ? (image_tag admin_post.image, class: "w-64 rounded mb-2") : nil %>
+    <label class="text-sm" for="cover_image">Cover Image</label>
+    <%= form.file_field :image, id: "image" %>
+  </div>
+
+  <div class="flex flex-col mt-4">
+    <label class="text-sm" for="cover_image">Paid</label>
+    <%= form.check_box :paid, id: "paid", class: "rounded border-gray-200" %>
+  </div>
+
+  <div class="flex flex-col mt-4">
+    <label class="text-sm" for="cover_image">Premium Description</label>
+    <%= form.text_area :premium_description, class: "rounded border-gray-200", id: "premium_description", placeholder: "Premium post description" %>
+  </div>
+
+  <div class="mt-4">
+    <%= form.submit "Submit", class: "bg-amaranth-500 hover:bg-amaranth-600 text-white-50 rounded cursor-pointer px-4 py-2" %>
   </div>
 <% end %>

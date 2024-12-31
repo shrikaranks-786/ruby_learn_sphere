@@ -1,15 +1,13 @@
 <div class="w-full">
   <div class="flex justify-end items-center">
-    <%= link_to "New post", new_admin_post_path, class:"bg-red-500 hover:bg-red-600 px-4 py-2 cursor-pointer rounded text-white-50" %>
+    <%= link_to "New post", new_admin_post_path, class: "bg-amaranth-500 hover:bg-amaranth-600 px-4 py-2 cursor-pointer rounded text-white-50" %>
   </div>
-<p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Posts" %>
+  <p style="color: green"><%= notice %></p>
 
-<div id="admin_posts" class="min-w-full flex flex-wrap justify-center gap-5>
-  <% @admin_posts.each do |admin_post| %>
-    <%= render admin_post %>
-  <% end %>
-</div>
-
+  <div id="admin_posts" class="min-w-full flex flex-wrap justify-center gap-5 mt-6 pb-6">
+    <% @admin_posts.each do |admin_post| %>
+      <%= render admin_post %>
+    <% end %>
+  </div>
 </div>

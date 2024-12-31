@@ -1,2 +1,13 @@
-<div id="<%= dom_id post %>">
+<div id="<%= dom_id post %>" class="max-w-xs rounded overflow-hidden shadow-lg">
+  <% if post.image.present? %>
+    <%= image_tag post.image, class: "w-full" %>
+  <% else %>
+    <%= image_tag("https://via.placeholder.com/320x180") %>
+  <% end %>
+
+  <div class="px-4 py-4">
+    <div class="font-bold text-xl mb-6"><%= post.title %></div>
+    <%= link_to "Edit post", edit_admin_post_path(post), class: "bg-amaranth-500 hover:bg-amaranth-700 text-white-50 font-bold py-2 px-4 rounded" %>
+    <%= link_to "View Lessons", class: "bg-camelot-500 hover:bg-camelot-700 text-white-50 font-bold py-2 px-4 rounded" %>
+  </div>
 </div>
