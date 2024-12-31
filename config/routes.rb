@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-      resources :posts
+      resources :posts do
+        resources :lessons
+      end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

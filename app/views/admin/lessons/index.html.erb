@@ -1,16 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<div class="flex flex-col w-full">
 
-<% content_for :title, "Lessons" %>
+  <% content_for :title, "Lessons" %>
+  <div>
+    <p style="color: green"><%= notice %></p>
+    <h1 class="mb-4 font-bold text-2xl"> <%= @admin_post.title%> </h1>
+    <%= link_to "New lesson", new_admin_post_lesson_path(@admin_post) ,class: "bg-red-500 hover:bg-red-600 text-white-50 rounded px-4 py-2"%>
+  </div>
 
-<h1>Lessons</h1>
 
-<div id="admin_lessons">
-  <% @admin_lessons.each do |admin_lesson| %>
-    <%= render admin_lesson %>
-    <p>
-      <%= link_to "Show this lesson", admin_lesson %>
-    </p>
-  <% end %>
+  <div id="admin_lessons">
+    <% @admin_lessons.each do |admin_lesson| %>
+      <div class="max-w-xs" id="<%= admin_lesson.id %>">
+      <%= link_to [:admin,@admin_post,admin_lesson] do %>
+        <%= render admin_lesson %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New lesson", new_admin_lesson_path %>
