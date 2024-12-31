@@ -1,12 +1,12 @@
-<% content_for :title, "Editing post" %>
+<div class="w-full flex flex-col justify-start items-center">
+  <% content_for :title, "Editing post" %>
 
-<h1>Editing post</h1>
+  <%= render "form", admin_post: @admin_post %>
 
-<%= render "form", admin_post: @admin_post %>
+  <br>
 
-<br>
-
-<div>
-  <%= link_to "Show this post", @admin_post %> |
-  <%= link_to "Back to posts", admin_posts_path %>
+  <div>
+    <%= link_to "Show this post", [:admin,@admin_post] %> |
+    <%= link_to "Back to posts", admin_posts_path %>
+  </div>
 </div>

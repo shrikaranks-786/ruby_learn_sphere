@@ -3,6 +3,10 @@ class Admin::PostsController < AdminController
     @admin_posts = Post.all
   end
 
+  def show
+    @admin_post = Post.find(params[:id])
+  end
+
   def new
     @admin_post = Post.new
   end
@@ -18,7 +22,17 @@ class Admin::PostsController < AdminController
   end
 
   def edit
-    @admin_post
+    @admin_post = Post.find(params[:id])
+  end
+
+  def update
+    @admin_post = Post.find(params[:id])
+
+    if @admin_post.update(post_params)
+      redirect_to admin_posts_path
+    else
+      render :edit
+    end
   end
 
   private
