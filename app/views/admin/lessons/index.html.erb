@@ -8,7 +8,7 @@
   </div>
 
 
-  <div id="admin_lessons">
+  <div id="admin_lessons" class="flex flex-col flex-wrap justify-center lg:justify-start items-center lg:flex-row w-full gap-5 pb-4">
     <% @admin_lessons.each do |admin_lesson| %>
       <div class="max-w-xs" id="<%= admin_lesson.id %>">
       <%= link_to [:admin,@admin_post,admin_lesson] do %>
