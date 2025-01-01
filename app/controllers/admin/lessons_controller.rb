@@ -10,6 +10,13 @@ class Admin::LessonsController < AdminController
     @admin_lesson = @admin_post.lessons.new 
   end
 
+  def show
+    
+  end
+
+  def edit
+    
+  end
 
   def update
     if @admin_lesson.update(lesson_params)
