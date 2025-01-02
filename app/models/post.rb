@@ -7,6 +7,9 @@ class Post < ApplicationRecord
   has_and_belongs_to_many :categories
   has_many :users, through: :post_users
 
+  has_rich_text :description
+  has_rich_text :premium_description
+
   def first_lesson
     self.lessons.order(:position).first
   end

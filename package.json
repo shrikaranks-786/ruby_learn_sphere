@@ -9,8 +9,10 @@
     "build:css": "tailwindcss build app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css"
   },
   "dependencies": {
+    "@rails/actiontext": "^8.0.100",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "trix": "^2.1.12"
   }
 }
