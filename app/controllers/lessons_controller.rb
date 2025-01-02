@@ -8,7 +8,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1 or /lessons/1.json
   def show
-    @completed_lessons = current_user.lesson_user.where(completed:true).pluck(:lesson_id)
+    @completed_lessons = current_user.lesson_users.where(completed:true).pluck(:lesson_id)
     @post = @lesson.post
   end
 

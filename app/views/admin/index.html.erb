@@ -1,1 +1,37 @@
-<h1>admin index</h1>
+<div class="w-full flex flex-col justify-start items-center">
+  <h1 class="font-bold text-4xl mb-4 md:mb-10 text-start w-full">Admin Dashboard</h1>
+  <div class="flex flex-col gap-10 justify-center md:flex-row items-center md:justify-between w-full">
+    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+      <div class="px-6 py-4">
+        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Sign Ups</h2>
+        <p class="text-amaranth-50 text-base">
+          <%= @quick_stats[:sign_ups] %>
+        </p>
+      </div>
+    </div>
+    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+      <div class="px-6 py-4">
+        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Sales</h2>
+        <p class="text-amaranth-50 text-base">
+          <%= @quick_stats[:sales] %>
+        </p>
+      </div>
+    </div>
+    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+      <div class="px-6 py-4">
+        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Lessons Done</h2>
+        <p class="text-amaranth-50 text-base">
+          <%= @quick_stats[:completed_lessons] %>
+        </p>
+      </div>
+    </div>
+    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+      <div class="px-6 py-4">
+        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Total Sign Ups</h2>
+        <p class="text-amaranth-50 text-base">
+          <%= @quick_stats[:total_sign_ups] %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div> 

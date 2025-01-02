@@ -126,6 +126,8 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    groupdate (6.5.1)
+      activesupport (>= 7)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     image_processing (1.13.0)
@@ -372,6 +374,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   font-awesome-sass (~> 6.5.1)
+  groupdate
   image_processing (~> 1.2)
   importmap-rails
   jbuilder

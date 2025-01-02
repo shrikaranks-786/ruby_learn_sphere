@@ -71,3 +71,5 @@ gem "devise", "~> 4.9"
 gem "cssbundling-rails"
 
 gem "ruby-vips", "~> 2.2", ">= 2.2.2" # source "https://rubygems.org"
+
+gem "groupdate"

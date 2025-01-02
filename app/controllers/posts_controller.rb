@@ -5,11 +5,11 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     # @user_unlocked_courses = current_user&.course_users&.pluck(:course_id)
-    @user_started_courses = current_user&.lesson_user&.joins(:lesson)&.pluck(:post_id)&.uniq
+    @user_started_courses = current_user&.lesson_users&.joins(:lesson)&.pluck(:post_id)&.uniq
     if @user_started_courses.present?
       @user_course_progresses = @user_started_courses.map do |post_id|
         course_lessons = Post.find(post_id).lessons.count
-        completed_lessons = current_user&.lesson_user&.joins(:lesson)&.where(completed: true, lesson: { post: post_id })&.count
+        completed_lessons = current_user&.lesson_users&.joins(:lesson)&.where(completed: true, lesson: { post: post_id })&.count
         { post_id: post_id, completed_percentage: (completed_lessons.to_f / course_lessons.to_f * 100).to_i }
       end
     end
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @completed_lessons = current_user&.lesson_user&.joins(:lesson)&.where(completed: true, lessons: { post: @post })&.pluck(:lesson_id)
+    @completed_lessons = current_user&.lesson_users&.joins(:lesson)&.where(completed: true, lessons: { post: @post })&.pluck(:lesson_id)
   end
 
   # GET /posts/new
