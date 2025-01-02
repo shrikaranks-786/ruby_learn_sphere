@@ -1,72 +1,80 @@
-<div class="flex flex-col lg:pl-6">
-    <div class="mt-6 lg:mt-0 flex justify-center items-center w-full">
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
-            <div class="bg-red-600 p-4">
-                <h2 class="text-white-50 text-2xl font-bold">Start learning</h2>
-            </div>
-            <div class="p-4">
-                <% if user_signed_in? %>
-                <% if @completed_lessons&.any? %>
-                    <% if @completed_lessons.count == @post.lessons.count %>
-                    <p class="text-gray-700 text-base mb-4">
-                        You have completed this post. Congrats!
-                    </p>
-                    <%= link_to "Watch Again", post_lesson_path(@post, @post.first_lesson), class: "bg-green-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                    <% else %>
-                    <p class="text-gray-700 text-base mb-4">
-                        Continue the post and pick up where you left off.
-                    </p>
-                    <%= link_to "Continue post", post_lesson_path(@post, @post.next_lesson(current_user)), class: "bg-green-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                    <% end %>
-                <% else %>
-                    <p class="text-gray-700 text-base mb-4">
-                    Start the post and begin learning all about the world of web dev.
-                    </p>
-                    <%= link_to "Start post", post_lesson_path(@post, @post.first_lesson), class: "bg-green-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                <% end %> 
-                <% else %>
-                <p class="text-gray-700 text-base mb-4">
-                Sign up for free today and start exploring the endless possibilities.
-                </p>
-                <%= link_to "Sign Up", new_user_registration_path, class: "bg-green-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                <% end %>
-            </div>
-        </div>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+
+  <div class="mt-8 space-y-6">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border-4 border-indigo-400">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6">
+        <h2 class="text-white text-3xl font-bold tracking-tight">Start Your Learning Journey</h2>
+      </div>
+      <div class="p-6 bg-gradient-to-b from-indigo-50 to-white">
+        <% if user_signed_in? %>
+          <% if @completed_lessons&.any? %>
+            <% if @completed_lessons.count == @post.lessons.count %>
+              <p class="text-indigo-900 text-xl mb-4 font-semibold">
+                🎉 Congratulations! You've mastered this course.
+              </p>
+              <%= link_to "Review Course", post_lesson_path(@post, @post.first_lesson), class: "btn-primary" %>
+            <% else %>
+              <p class="text-indigo-900 text-xl mb-4 font-semibold">
+                📚 Your progress is impressive! Keep going!
+              </p>
+              <%= link_to "Resume Course", post_lesson_path(@post, @post.next_lesson(current_user)), class: "btn-primary" %>
+            <% end %>
+          <% else %>
+            <p class="text-indigo-900 text-xl mb-4 font-semibold">
+              🚀 Embark on an exciting web development adventure!
+            </p>
+            <%= link_to "Start Course", post_lesson_path(@post, @post.first_lesson), class: "btn-primary" %>
+          <% end %> 
+        <% else %>
+          <p class="text-indigo-900 text-xl mb-4 font-semibold">
+            🌟 Unlock a world of knowledge with our free sign-up!
+          </p>
+          <%= link_to "Sign Up", new_user_registration_path, class: "btn-primary" %>
+        <% end %>
+      </div>
     </div>
+
     <% if @post.paid_for_course %>
-        <div class="mt-6 flex justify-center items-center w-full">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
-                <div class="bg-green-500 p-4">
-                    <h2 class="text-white-50 text-2xl font-bold">Course Unlocked!</h2>
-                </div>
-                <div class="p-4">
-                    <p class="text-gray-700 text-base mb-4">
-                        You now have access to all lessons in this course.
-                    </p>
-                    <%= link_to "Start Learning", post_path(@post), class: "bg-blue-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                </div>
-            </div>
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden border-4 border-emerald-400">
+        <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-6">
+          <h2 class="text-white text-3xl font-bold tracking-tight">Full Access Granted!</h2>
         </div>
+        <div class="p-6 bg-gradient-to-b from-emerald-50 to-white">
+          <p class="text-emerald-900 text-xl mb-4 font-semibold">
+            🔓 You've unlocked the treasure trove of knowledge!
+          </p>
+          <%= link_to "Explore Course", post_path(@post), class: "btn-secondary bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500" %>
+        </div>
+      </div>
     <% else %>
-        <div class="mt-6 flex justify-center items-center w-full">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
-                <div class="bg-red-500 p-4">
-                    <h2 class="text-white-50 text-2xl font-bold">Get more content</h2>
-                </div>
-                <div class="p-4">
-                    <% if user_signed_in? %>
-                        <p class="text-gray-700 text-base mb-4">
-                            Unlock more content by purchasing
-                        </p>
-                        <%= button_to "Unlock full content", unlock_course_post_lesson_path(post_id: @post.id, id: @post.id), method: :post, class: "bg-red-600 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                    <% else %>
-                        <p class="text-gray-700 text-base mb-4">
-                            Sign up for free today and start exploring
-                        </p>
-                        <%= link_to "Sign up", new_user_registration_path, class: "bg-green-300 hover:bg-green-500 text-white-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full transition ease-in-out duration-150" %>
-                    <% end %>
-                </div>
-            </div>
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden border-4 border-amber-400">
+        <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-6">
+          <h2 class="text-white text-3xl font-bold tracking-tight">Unlock Full Potential</h2>
         </div>
+        <div class="p-6 bg-gradient-to-b from-amber-50 to-white">
+          <% if user_signed_in? %>
+            <p class="text-amber-900 text-xl mb-4 font-semibold">
+              🚀 Supercharge your learning with full access!
+            </p>
+            <%= button_to "Unlock Full Content", unlock_course_post_lesson_path(post_id: @post.id, id: @post.id), method: :post, class: "btn-secondary" %>
+          <% else %>
+            <p class="text-amber-900 text-xl mb-4 font-semibold">
+              🌟 Sign up now to explore our premium content galaxy!
+            </p>
+            <%= link_to "Sign Up", new_user_registration_path, class: "btn-secondary" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
+  </div>
 </div>
+
+<style>
+  .btn-primary {
+    @apply bg-indigo-600 text-white font-bold py-4 px-6 rounded-lg w-full text-center transition duration-300 ease-in-out hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 shadow-md text-lg transform hover:scale-105;
+  }
+  .btn-secondary {
+    @apply bg-amber-500 text-white font-bold py-4 px-6 rounded-lg w-full text-center transition duration-300 ease-in-out hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 shadow-md text-lg transform hover:scale-105;
+  }
+</style>
+
