@@ -1,6 +1,6 @@
 class Admin::LessonsController < AdminController
   before_action :set_post
-  before_action :set_lesson, only: [ :show, :edit, :update, :destroy]
+  before_action :set_lesson, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @admin_lessons = @admin_post.lessons.order(:position)
@@ -38,8 +38,7 @@ class Admin::LessonsController < AdminController
 
   def destroy
     @admin_lesson.destroy!
-
-    redirect_to admin_post_lessons_path(@admin_post)
+    redirect_to admin_post_lessons_path(@admin_post), notice: "Lesson was successfully destroyed."
   end
 
   private
@@ -55,5 +54,4 @@ class Admin::LessonsController < AdminController
   def set_lesson
     @admin_lesson = Lesson.find(params[:id])
   end
-
 end

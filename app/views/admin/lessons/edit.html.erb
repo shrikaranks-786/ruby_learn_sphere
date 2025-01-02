@@ -1,12 +1,12 @@
-<% content_for :title, "Editing lesson" %>
+<div class="flex flex-col justify-start items-center w-full">
+  <% content_for :title, "Editing lesson" %>
 
-<h1>Editing lesson</h1>
+  <%= render "form", admin_lesson: @admin_lesson %>
 
-<%= render "form", admin_lesson: @admin_lesson %>
+  <br>
 
-<br>
-
-<div>
-  <%= link_to "Show this lesson", @admin_lesson %> |
-  <%= link_to "Back to lessons", admin_lessons_path %>
+  <div>
+    <%= link_to "Show this lesson", [:admin,@admin_post,@admin_lesson] %> |
+    <%= link_to "Back to lessons", admin_post_lessons_path %>
+  </div>
 </div>
