@@ -12,7 +12,9 @@
               <p class="text-indigo-900 text-xl mb-4 font-semibold">
                 🎉 Congratulations! You've mastered this course.
               </p>
-              <%= link_to "Review Course", post_lesson_path(@post, @post.first_lesson), class: "btn-primary" %>
+              <% if @post.first_lesson %>
+                <%= link_to "Review Course", post_lesson_path(@post, @post.first_lesson), class: "btn-primary" %>
+              <% end %>
             <% else %>
               <p class="text-indigo-900 text-xl mb-4 font-semibold">
                 📚 Your progress is impressive! Keep going!
@@ -23,7 +25,9 @@
             <p class="text-indigo-900 text-xl mb-4 font-semibold">
               🚀 Embark on an exciting web development adventure!
             </p>
-            <%= link_to "Start Course", post_lesson_path(@post, @post.first_lesson), class: "btn-primary" %>
+            <% if @post.first_lesson %>
+              <%= link_to "Start Course", post_lesson_path(@post, @post.first_lesson), class: "btn-primary" %>
+            <% end %>
           <% end %> 
         <% else %>
           <p class="text-indigo-900 text-xl mb-4 font-semibold">

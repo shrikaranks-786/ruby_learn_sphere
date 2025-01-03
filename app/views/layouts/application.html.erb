@@ -32,25 +32,31 @@
       <%= yield %>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script>
   document.addEventListener("DOMContentLoaded", function () {
     const barsButton = document.getElementById("bars");
     const closeButton = document.getElementById("close");
     const mobileLinks = document.getElementById("mobile-links");
 
-    // When clicking the bars (hamburger) button, show the menu
-    barsButton.addEventListener("click", function () {
-      mobileLinks.classList.remove("hidden");  // Show mobile menu
-      barsButton.classList.add("hidden");      // Hide bars icon
-      closeButton.classList.remove("hidden"); // Show close icon
-    });
+    // Check if elements exist before adding event listeners
+    if (barsButton && closeButton && mobileLinks) {
+      // When clicking the bars (hamburger) button, show the menu
+      barsButton.addEventListener("click", function () {
+        mobileLinks.classList.remove("hidden");  // Show mobile menu
+        barsButton.classList.add("hidden");      // Hide bars icon
+        closeButton.classList.remove("hidden"); // Show close icon
+      });
 
-    // When clicking the close (X) button, hide the menu
-    closeButton.addEventListener("click", function () {
-      mobileLinks.classList.add("hidden");     // Hide mobile menu
-      barsButton.classList.remove("hidden");  // Show bars icon
-      closeButton.classList.add("hidden");    // Hide close icon
-    });
+      // When clicking the close (X) button, hide the menu
+      closeButton.addEventListener("click", function () {
+        mobileLinks.classList.add("hidden");     // Hide mobile menu
+        barsButton.classList.remove("hidden");  // Show bars icon
+        closeButton.classList.add("hidden");    // Hide close icon
+      });
+    } else {
+      console.warn("One or more elements (bars, close, mobile-links) are not found in the DOM.");
+    }
   });
 </script>
 
