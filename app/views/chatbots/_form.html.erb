@@ -1,0 +1,11 @@
+<div id="chat-input" style="margin-top: 10px;">
+  <%= form_with model: new_question, url: chatbot_path, local: true do |form| %>
+    <div style="margin-bottom: 10px;">
+      <%= form.label :question, "Ask a question:", style: "display: block; font-weight: bold; margin-bottom: 5px;" %>
+      <%= form.text_field :question, required: true, style: "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;" %>
+    </div>
+    <div>
+      <%= form.submit "Send", style: "padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer;" %>
+    </div>
+  <% end %>
+</div> 
