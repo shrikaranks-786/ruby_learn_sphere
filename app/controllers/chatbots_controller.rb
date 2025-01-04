@@ -1,4 +1,3 @@
-# app/controllers/chatbots_controller.rb
 class ChatbotsController < ApplicationController
   def index
     @chatbots = Chatbot.all.order(created_at: :asc)
@@ -8,32 +7,30 @@ class ChatbotsController < ApplicationController
 
   def create
     question = params[:chatbot][:question]
-    Rails.logger.info "Received question: #{question}" # Log the received question
+    Rails.logger.info "Received question: #{question}"
 
     answer = fetch_groq_response(question)
-    Rails.logger.info "Received answer: #{answer}" # Log the received answer
+    Rails.logger.info "Received answer: #{answer}" 
 
-    # Check if the answer is valid before creating the Chatbot record
     if answer.present?
       @chatbot = Chatbot.create(question: question, answer: answer)
     else
       @chatbot = Chatbot.new(question: question, answer: "Sorry, I couldn't generate a response.")
     end
 
-    # Ensure @chatbots is set to avoid nil errors
     @chatbots = Chatbot.all.order(created_at: :asc)
-    @new_question = Chatbot.new # Initialize @new_question here
+    @new_question = Chatbot.new
 
     if @chatbot.persisted?
       flash[:notice] = "Question and answer saved successfully!"
-      Rails.logger.info "Chatbot saved successfully." # Log success
-      redirect_to chatbot_path # Redirect to the index action or appropriate path
+      Rails.logger.info "Chatbot saved successfully."
+      redirect_to chatbot_path 
     else
       flash[:error] = "Failed to save chatbot response."
-      Rails.logger.error "Failed to save chatbot: #{@chatbot.errors.full_messages.join(', ')}" # Log errors
+      Rails.logger.error "Failed to save chatbot: #{@chatbot.errors.full_messages.join(', ')}"
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.replace("chat-input", partial: "chatbots/form", locals: { new_question: @new_question }) }
-        format.html { render :chatbot } # Render the form again if there's an error
+        format.html { render :chatbot }
       end
     end
   end
@@ -42,17 +39,20 @@ class ChatbotsController < ApplicationController
 
   def fetch_groq_response(question)
     api_url = "https://api.groq.com/openai/v1/chat/completions"
-    api_key = "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" # Assuming you've set the API key in environment variables
+    api_key = "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"
   
-    # Set the message to send to Groq
+    posts = Post.all
+    post_details = posts.map do |post|
+      "Post ID: #{post.id}, Title: #{post.title}, Description: #{post.description}"
+    end.join("\n")
+    prompt = "Here are all the posts:\n#{post_details}\n\nUser Question: #{question}"
     messages = [
-      { role: "user", content: question }
+      { role: "user", content: question + prompt }
     ]
+
   
-    # Set the model you want to use (update this with the model from the documentation)
-    model = "llama-3.3-70b-versatile"  # Change to the required model from the documentation
+    model = "llama-3.3-70b-versatile"
   
-    # Send the request to Groq API
     response = HTTParty.post(api_url, 
       headers: {
         "Authorization" => "Bearer #{api_key}",
@@ -64,7 +64,6 @@ class ChatbotsController < ApplicationController
       }.to_json
     )
   
-    # Check if the response is valid and return the response message
     if response.success?
       response_body = response.parsed_response
       return response_body.dig("choices", 0, "message", "content") || "No response from Groq."
