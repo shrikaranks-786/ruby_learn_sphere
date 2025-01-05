@@ -1,37 +1,41 @@
-<div class="w-full flex flex-col justify-start items-center">
-  <h1 class="font-bold text-4xl mb-4 md:mb-10 text-start w-full">Admin Dashboard</h1>
-  <div class="flex flex-col gap-10 justify-center md:flex-row items-center md:justify-between w-full">
-    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+<div class="w-full flex flex-col justify-start items-center bg-gray-100 p-6">
+  <h1 class="font-bold text-4xl mb-8 text-gray-800 w-full text-center md:text-left">Admin Dashboard</h1>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-500">
       <div class="px-6 py-4">
-        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Sign Ups</h2>
-        <p class="text-amaranth-50 text-base">
+        <h2 class="font-semibold text-lg mb-2 text-gray-700">Sign Ups</h2>
+        <p class="text-3xl font-bold text-blue-600">
           <%= @quick_stats[:sign_ups] %>
         </p>
       </div>
     </div>
-    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+    
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-green-500">
       <div class="px-6 py-4">
-        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Sales</h2>
-        <p class="text-amaranth-50 text-base">
+        <h2 class="font-semibold text-lg mb-2 text-gray-700">Sales</h2>
+        <p class="text-3xl font-bold text-green-600">
           <%= @quick_stats[:sales] %>
         </p>
       </div>
     </div>
-    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+    
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-purple-500">
       <div class="px-6 py-4">
-        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Lessons Done</h2>
-        <p class="text-amaranth-50 text-base">
+        <h2 class="font-semibold text-lg mb-2 text-gray-700">Lessons Done</h2>
+        <p class="text-3xl font-bold text-purple-600">
           <%= @quick_stats[:completed_lessons] %>
         </p>
       </div>
     </div>
-    <div class="max-w-sm rounded overflow-hidden w-full md:w-48 shadow-xl bg-gradient-to-r from-amaranth-400 to-amaranth-300">
+    
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-red-500">
       <div class="px-6 py-4">
-        <h2 class="font-bold text-xl mb-2 text-amaranth-50">Total Sign Ups</h2>
-        <p class="text-amaranth-50 text-base">
+        <h2 class="font-semibold text-lg mb-2 text-gray-700">Total Sign Ups</h2>
+        <p class="text-3xl font-bold text-red-600">
           <%= @quick_stats[:total_sign_ups] %>
         </p>
       </div>
     </div>
   </div>
-</div> 
+</div>
