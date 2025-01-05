@@ -45,7 +45,7 @@ class ChatbotsController < ApplicationController
     post_details = posts.map do |post|
       "Post ID: #{post.id}, Title: #{post.title}, Description: #{post.description}"
     end.join("\n")
-    prompt = "Here are all the posts:\n#{post_details}\n\nUser Question: #{question}"
+    prompt = "Here are all the posts:\n#{post_details}\n\nUser Question: #{question} see dont include the post id when talking to me hide it and i makeing a course selling website ur the suport center for my website so dont answere to any question other than what is there in my website and also give details about the course and make them take the course and ur trying to sell the cousrse to the user be professional "
     messages = [
       { role: "user", content: question + prompt }
     ]
