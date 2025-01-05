@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       resources :lessons
     end
 
+    resources :users
+
     # Admin dashboard
     get "/", to: "admin#index", as: :admin_dashboard
   end
