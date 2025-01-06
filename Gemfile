@@ -64,7 +64,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "font-awesome-sass", "~> 6.5.1"
+gem "font-awesome-sass"
 
 gem "devise", "~> 4.9"
 

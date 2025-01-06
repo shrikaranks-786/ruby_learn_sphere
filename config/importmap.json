@@ -1,0 +1,13 @@
+{
+  "imports": {
+    "application": "/assets/application-d1fc65d6.js",
+    "@hotwired/turbo-rails": "/assets/turbo.min-fae85750.js",
+    "@hotwired/stimulus": "/assets/stimulus.min-4b1e420e.js",
+    "@hotwired/stimulus-loading": "/assets/stimulus-loading-1fc53fe7.js",
+    "trix": "/assets/trix-0d050b00.js",
+    "@rails/actiontext": "/assets/actiontext.esm-f1c04d34.js",
+    "controllers/application": "/assets/controllers/application-3affb389.js",
+    "controllers/hello_controller": "/assets/controllers/hello_controller-708796bd.js",
+    "controllers": "/assets/controllers/index-ee64e1f1.js"
+  }
+}
