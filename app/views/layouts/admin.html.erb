@@ -31,28 +31,5 @@
     <main class="container mx-auto mt-6 px-5 flex">
       <%= yield %>
     </main>
-
-    <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const barsButton = document.getElementById("bars");
-    const closeButton = document.getElementById("close");
-    const mobileLinks = document.getElementById("mobile-links");
-
-    // When clicking the bars (hamburger) button, show the menu
-    barsButton.addEventListener("click", function () {
-      mobileLinks.classList.remove("hidden");  // Show mobile menu
-      barsButton.classList.add("hidden");      // Hide bars icon
-      closeButton.classList.remove("hidden"); // Show close icon
-    });
-
-    // When clicking the close (X) button, hide the menu
-    closeButton.addEventListener("click", function () {
-      mobileLinks.classList.add("hidden");     // Hide mobile menu
-      barsButton.classList.remove("hidden");  // Show bars icon
-      closeButton.classList.add("hidden");    // Hide close icon
-    });
-  });
-</script>
-
   </body>
 </html>
