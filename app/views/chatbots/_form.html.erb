@@ -1,11 +1,47 @@
-<div id="chat-input" style="margin-top: 10px;">
-  <%= form_with model: new_question, url: chatbot_path, local: true do |form| %>
-    <div style="margin-bottom: 10px;">
-      <%= form.label :question, "Ask a question:", style: "display: block; font-weight: bold; margin-bottom: 5px;" %>
-      <%= form.text_field :question, required: true, style: "width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;" %>
-    </div>
-    <div>
-      <%= form.submit "Send", style: "padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer;" %>
-    </div>
+<div class="chat-input">
+  <%= form_with model: new_question, url: chatbot_path, local: false do |form| %>
+    <%= form.text_field :question, 
+                        required: true, 
+                        placeholder: "Type your message here...", 
+                        autocomplete: "off" %>
+    <%= form.submit "Send" %>
   <% end %>
-</div> 
+</div>
+
+<style>
+  .chat-input form {
+    display: flex;
+    align-items: center;
+  }
+
+  .chat-input input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .chat-input input[type="text"]:focus {
+    border-color: #4a90e2;
+  }
+
+  .chat-input input[type="submit"] {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .chat-input input[type="submit"]:hover {
+    background-color: #3a7bc8;
+  }
+</style>
+
