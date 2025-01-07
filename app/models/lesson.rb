@@ -4,4 +4,6 @@ class Lesson < ApplicationRecord
   end
   belongs_to :post
   has_many :lesson_users, dependent: :destroy
+
+  has_rich_text :description
 end
