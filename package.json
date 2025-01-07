@@ -6,7 +6,7 @@
   "author": "shrikaran ks <shrikaranksise2024@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --sourcemap=none --load-path=node_modules --watch"
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --load-path=node_modules --watch"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
