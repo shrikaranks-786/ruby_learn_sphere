@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Devise routes for Admins
-  devise_for :admins, skip: [:registrations]
+  devise_for :admins
 
   # Devise routes for Users
   devise_for :users
