@@ -1,4 +1,5 @@
 class ChatbotsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @chatbots = Chatbot.all.order(created_at: :desc)
     @new_question = Chatbot.new

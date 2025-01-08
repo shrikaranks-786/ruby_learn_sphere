@@ -13,10 +13,8 @@
       <% end %>
       
       <div class="flex items-center space-x-4">
-        <% if user_signed_in? %>
+        <% if admin_signed_in? %>
           <%= link_to "Sign Out", destroy_user_session_path, data: { 'turbo_method': :delete, 'turbo_confirm': "Are you sure?" }, class: "bg-pink-500 hover:bg-pink-600 text-white font-medium py-2 px-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg" %>
-        <% else %>
-          <%= link_to "Sign In", new_user_session_path, class: "bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg" %>
         <% end %>
       </div>
     </div>

@@ -3,50 +3,236 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Embark on Your Learning Journey | Learn Sphere</title>
+  <title>Learn Sphere - Embark on Your Learning Journey</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-color: #111827;
+      color: #f3f4f6;
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    header {
+      padding: 1.5rem 0;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #c084fc;
+      text-decoration: none;
+    }
+    .nav-link {
+      color: #d1d5db;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-link:hover {
+      color: #ffffff;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: calc(100vh - 200px);
+      text-align: center;
+      padding: 2rem 0;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 3.75rem;
+      }
+    }
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 4rem;
+      }
+    }
+    .gradient-text {
+      background: linear-gradient(to right, #c084fc, #db2777);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .subtitle {
+      font-size: 1.25rem;
+      color: #9ca3af;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 640px) {
+      .subtitle {
+        font-size: 1.5rem;
+      }
+    }
+    .cta-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+    @media (min-width: 640px) {
+      .cta-container {
+        flex-direction: row;
+      }
+    }
+    .button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+    }
+    .button-primary {
+      background-color: #7c3aed;
+      color: #ffffff;
+    }
+    .button-primary:hover {
+      background-color: #6d28d9;
+    }
+    .button-secondary {
+      background-color: #1f2937;
+      color: #ffffff;
+    }
+    .button-secondary:hover {
+      background-color: #374151;
+    }
+    .features {
+      background-color: #1f2937;
+      padding: 4rem 0;
+    }
+    .features h2 {
+      font-size: 2.25rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .feature-card {
+      background-color: #374151;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .feature-card:hover {
+      transform: scale(1.05);
+    }
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .feature-description {
+      color: #9ca3af;
+    }
+    footer {
+      background-color: #111827;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    .footer-text {
+      color: #6b7280;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animated-gradient {
+      background: linear-gradient(270deg, #c084fc, #db2777);
+      background-size: 200% 200%;
+      animation: gradientAnimation 5s ease infinite;
+    }
+  </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500">
-  <div class="container mx-auto px-4 py-16">
-    <header class="text-center mb-16">
-      <h1 class="text-6xl font-extrabold mb-6 text-white">
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-green-500 to-blue-500">
-          Learn Sphere
-        </span>
-      </h1>
-      <p class="text-2xl text-white mb-8">Embark on Your Learning Journey</p>
-      <div class="space-x-4">
-        <%= link_to "Begin Your Adventure", new_user_registration_path, class: "inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-full transition duration-300" %>
-        <%= link_to "Return to Your Quest", new_user_session_path, class: "inline-block bg-transparent hover:bg-white border-2 border-white text-white hover:text-black font-bold py-3 px-6 rounded-full transition duration-300" %>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="/" class="logo">Learn Sphere</a>
+        <nav>
+          <%= link_to "Log In",new_user_session_path, class: "nav-link" %>
+        </nav>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <section class="mb-16">
-      <h2 class="text-4xl font-bold mb-8 text-center text-white">Discover a World of Possibilities</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-white">
-          <h3 class="text-2xl font-semibold mb-4 text-yellow-300">Expert-Led Courses</h3>
-          <p>Learn from industry professionals and thought leaders.</p>
+  <main>
+    <div class="container">
+      <h1>Embark on Your <span class="gradient-text animated-gradient">Learning Journey</span></h1>
+      <p class="subtitle">Discover a world of knowledge at your fingertips</p>
+      <div class="cta-container">
+        <%= link_to "Begin Your Adventure", new_user_registration_path, class: "button button-primary" %>
+        <%= link_to "Return to Your Quest", new_user_session_path, class: "button button-secondary" %>
+      </div>
+    </div>
+  </main>
+
+  <section class="features">
+    <div class="container">
+      <h2>Discover a World of Possibilities</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎓</div>
+          <h3 class="feature-title">Expert-Led Courses</h3>
+          <p class="feature-description">Learn from industry professionals and thought leaders.</p>
         </div>
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-white">
-          <h3 class="text-2xl font-semibold mb-4 text-green-300">Interactive Learning</h3>
-          <p>Engage with hands-on projects and real-world applications.</p>
+        <div class="feature-card">
+          <div class="feature-icon">🖥️</div>
+          <h3 class="feature-title">Interactive Learning</h3>
+          <p class="feature-description">Engage with hands-on projects and real-world applications.</p>
         </div>
-        <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-xl p-6 text-white">
-          <h3 class="text-2xl font-semibold mb-4 text-blue-300">Community Support</h3>
-          <p>Connect with peers and mentors on your learning journey.</p>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3 class="feature-title">Community Support</h3>
+          <p class="feature-description">Connect with peers and mentors on your learning journey.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="text-center">
-      <h2 class="text-4xl font-bold mb-8 text-white">Start Your Journey Today</h2>
-      <%= link_to "Join Learn Sphere Now", new_user_registration_path, class: "inline-block bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full transition duration-300" %>
-    </section>
-  </div>
+  <footer>
+    <div class="container">
+      <p class="footer-text">© <%= Time.current.year %> Learn Sphere. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
