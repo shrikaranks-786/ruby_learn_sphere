@@ -19,8 +19,8 @@ class Post < ApplicationRecord
       return self.lessons.order(:position).first
     end
 
-    completed_lessons = current_user.lesson_user.includes(:lesson).where(completed: true).where(lessons: { post_id: self.id })
-    started_lessons = current_user.lesson_user.includes(:lesson).where(completed: false).where(lesson: { post_id: self.id }).order(:position)
+    completed_lessons = current_user.lesson_users.includes(:lesson).where(completed: true).where(lessons: { post_id: self.id })
+    started_lessons = current_user.lesson_users.includes(:lesson).where(completed: false).where(lesson: { post_id: self.id }).order(:position)
 
     if started_lessons.any?
       return started_lessons.first.lesson

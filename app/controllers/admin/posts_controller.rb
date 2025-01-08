@@ -15,7 +15,7 @@ class Admin::PostsController < AdminController
     @admin_post = Post.new(post_params)
 
     if @admin_post.save
-      redirect_to admin_post_path
+      redirect_to admin_posts_path
     else
       render :new
     end

@@ -20,19 +20,14 @@
           <tr>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course Title</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Completed Percentage</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           <% @admin_posts.each do |course| %>
             <% user_completed_percentage = @user_course_progresses.find {|cp| cp[:course_id] == course.id}[:completed_percentage] %>
-            <% user_paid = @admin_user.course_users.any?{|cu| cu.course_id == course.id } %>
             <tr class="hover:bg-gray-50">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= course.title %></td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= user_completed_percentage %>%</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                <%= user_paid ? icon('fa-solid', 'money-bill', class: "text-green-500") : icon('fa-regular', 'circle-xmark', class: "text-red-500") %>
-              </td>
             </tr>
           <% end %>
         </tbody>
