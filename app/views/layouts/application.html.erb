@@ -20,9 +20,11 @@
   </head>
 
   <body>
-    <div class="w-full">
-      <%= render "shared/navbar"%>
-    </div>
+    <% unless (controller_name == 'pages' && action_name == 'landing') || (devise_controller? && action_name.in?(%w[new create])) %>
+      <div class="w-full">
+        <%= render "shared/navbar"%>
+      </div>
+    <% end %>
     <main class="container mx-auto mt-6 px-5 flex">
       <%= yield %>
     </main>
