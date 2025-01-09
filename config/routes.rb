@@ -1,18 +1,13 @@
 Rails.application.routes.draw do
-  # Devise routes for Admins
   devise_for :admins
-
-  # Devise routes for Users
   devise_for :users
 
-  # Posts and nested Lessons routes
   resources :posts do
     resources :lessons do
       post 'unlock_course', on: :member
     end
   end
 
-  # Admin-specific routes
   namespace :admin do
     resources :posts do
       resources :lessons
@@ -20,7 +15,7 @@ Rails.application.routes.draw do
 
     resources :users
 
-    # Admin dashboard
+    # Admin dashboard accessible only under /admin
     get "/", to: "admin#index", as: :admin_dashboard
   end
 
@@ -32,9 +27,9 @@ Rails.application.routes.draw do
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Authenticated root paths
+  # Ensure no dashboard for admin at the root path
   authenticated :admin do
-    root to: "admin#index", as: :admin_root
+    root to: "pages#landing", as: :admin_authenticated_root # Renamed this route
   end
 
   authenticated :user do
