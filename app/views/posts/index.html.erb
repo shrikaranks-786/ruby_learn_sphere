@@ -5,11 +5,11 @@
 
   <% content_for :title, "Posts" %>
 
-  <div class="flex space-x-4 mb-6">
+  <div class="category-container">
     <% if @categories.present? %>
       <% @categories.each do |category| %>
         <%= link_to posts_path(category: category), 
-            class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" do %>
+            class: "category-btn #{'active' if params[:category] == category}" do %>
           <%= category %>
         <% end %>
       <% end %>
@@ -24,3 +24,28 @@
     <% end %>
   </div>
 </div>
+
+<style>
+  .category-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .category-btn {
+    padding: 0.5rem 1rem;
+    background-color: #3b82f6; /* Blue */
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .category-btn:hover {
+    background-color: #2563eb; /* Darker Blue */
+  }
+
+  .category-btn.active {
+    background-color: #1d4ed8; /* Active Blue */
+  }
+</style>
