@@ -12,29 +12,41 @@
   <% end %>
 
   <div class="flex flex-col">
-    <label class="text-sm" for="name">Title</label>
+    <label class="text-sm" for="title">Title</label>
     <%= form.text_field :title, class: "rounded border-gray-200", id: "title", placeholder: "post title" %>
   </div>
 
   <div class="flex flex-col mt-4"> 
-    <label class="text-sm" for="name">Description</label>
+    <label class="text-sm" for="description">Description</label>
     <%= form.rich_text_area :description, class: "rounded border-gray-200", id: "description", placeholder: "post description" %>
   </div>
 
   <div class="flex flex-col mt-4">
     <%= admin_post.image.present? ? (image_tag admin_post.image, class: "w-64 rounded mb-2") : nil %>
-    <label class="text-sm" for="cover_image">Cover Image</label>
+    <label class="text-sm" for="image">Cover Image</label>
     <%= form.file_field :image, id: "image" %>
   </div>
 
   <div class="flex flex-col mt-4">
-    <label class="text-sm" for="cover_image">Paid</label>
+    <label class="text-sm" for="paid">Paid</label>
     <%= form.check_box :paid, id: "paid", class: "rounded border-gray-200" %>
   </div>
 
   <div class="flex flex-col mt-4">
-    <label class="text-sm" for="cover_image">Premium Description</label>
+    <label class="text-sm" for="premium_description">Premium Description</label>
     <%= form.rich_text_area :premium_description, class: "rounded border-gray-200", id: "premium_description", placeholder: "Premium post description" %>
+  </div>
+
+  <!-- Category Dropdown -->
+  <div class="flex flex-col mt-4">
+    <label class="text-sm" for="category">Category</label>
+    <%= form.select :category, options_for_select(["Technology", "Health", "Education", "Finance", "Lifestyle"], admin_post.category), { prompt: "Select a category" }, class: "rounded border-gray-200" %>
+  </div>
+
+  <!-- Price Input -->
+  <div class="flex flex-col mt-4">
+    <label class="text-sm" for="price">Price</label>
+    <%= form.number_field :price, step: 0.01, class: "rounded border-gray-200", id: "price", placeholder: "Enter price" %>
   </div>
 
   <div class="mt-4">

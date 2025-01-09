@@ -1,4 +1,4 @@
-class Admin::UsersController < AdminController
+class Admin::UsersController < Admin::AdminController
   def index
     if params[:query].present?
       @admin_users = User.where("email LIKE?", "%#{params[:query]}%").order(created_at: :desc)

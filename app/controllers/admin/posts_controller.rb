@@ -1,4 +1,4 @@
-class Admin::PostsController < AdminController
+class Admin::PostsController < Admin::AdminController
   def index
     @admin_posts = Post.all
   end
@@ -37,6 +37,6 @@ class Admin::PostsController < AdminController
 
   private
   def post_params
-    params.require(:post).permit(:title,:description,:paid,:image)
+    params.require(:post).permit(:title,:description,:paid,:image,:category, :price)
   end
 end

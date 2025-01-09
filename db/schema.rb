@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_04_142147) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_09_092756) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -122,6 +122,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_04_142147) do
     t.string "stripe_price_id"
     t.text "premium_description"
     t.boolean "paid_for_course"
+    t.string "category"
+    t.decimal "price"
   end
 
   create_table "users", force: :cascade do |t|

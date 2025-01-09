@@ -1,4 +1,4 @@
-class Admin::LessonsController < AdminController
+class Admin::LessonsController < Admin::AdminController
   before_action :set_post
   before_action :set_lesson, only: [ :show, :edit, :update, :destroy ]
 

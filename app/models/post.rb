@@ -2,7 +2,7 @@ class Post < ApplicationRecord
   has_one_attached :image do |attachable|
     attachable.variant :thumb, resize_to_limit: [ 100, 100 ]
   end
-  has_many :lessons
+  has_many :lessons, dependent: :destroy
   has_many :post_users
   has_and_belongs_to_many :categories
   has_many :users, through: :post_users
