@@ -10,7 +10,14 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
-    # @user_unlocked_courses = current_user&.course_users&.pluck(:course_id)
+
+    case params[:price_order]
+    when "low_to_high"
+      @posts = @posts.order(price: :asc)
+    when "high_to_low"
+      @posts = @posts.order(price: :desc)
+    end
+
     @user_started_courses = current_user&.lesson_users&.joins(:lesson)&.pluck(:post_id)&.uniq
     if @user_started_courses.present?
       @user_course_progresses = @user_started_courses.map do |post_id|
