@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :lessons do
       post 'unlock_course', on: :member
+      post :chatbot_ask, on: :member
     end
   end
 
@@ -23,6 +24,13 @@ Rails.application.routes.draw do
   resource :chatbots, only: [:create]
   get "chatbot", to: "chatbots#index"
   post "chatbot", to: "chatbots#create"
+
+  resources :lessons do
+    member do
+      post :chatbot_ask
+    end
+  end
+  
 
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check

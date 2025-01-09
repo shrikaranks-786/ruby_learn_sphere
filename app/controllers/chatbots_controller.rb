@@ -8,10 +8,8 @@ class ChatbotsController < ApplicationController
 
   def create
     question = params[:chatbot][:question]
-    Rails.logger.info "Received question: #{question}"
 
     answer = fetch_groq_response(question)
-    Rails.logger.info "Received answer: #{answer}" 
 
     if answer.present?
       @chatbot = Chatbot.create(question: question, answer: answer)

@@ -1,4 +1,16 @@
 <div class="flex flex-col lg:flex-row-reverse w-full justify-start lg:justify-end pb-6">
+  <div class="flex flex-col lg:flex-row-reverse w-full justify-start lg:justify-end pb-6">
+    <div>
+      <%= render "chatbot" %>
+      <% if @groq_response.present? %>
+        <p><%= @groq_response %></p>
+      <% else %>
+        <p class="text-gray-500">No response from the chatbot yet. Ask a question to begin!</p>
+      <% end %>
+    </div>
+  </div>
+
+
   <div>
     <div>
       <% if notice.present? %>
@@ -18,7 +30,7 @@
     </div>
   </div>
 
-  <div class="sidebar_container lg:min-w-60 lg:mr-4 lg:overflow-y-scroll">
+   <div class="sidebar_container lg:min-w-60 lg:mr-4 lg:overflow-y-scroll">
     <%= render "sidebar" , post: @post , completed_lessons: @completed_lessons , paid_for_course: @paid_for_course%>
   </div>
 </div>
