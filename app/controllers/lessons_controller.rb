@@ -80,23 +80,12 @@ class LessonsController < ApplicationController
   end
 
   def chatbot_ask
-    @lesson = Lesson.find_by(id: params[:id])
+    @lesson = Lesson.find(params[:id])
     question = params[:question]
   
-    if @lesson.nil? || question.blank?
-      render json: { error: "Invalid lesson or question." }, status: :unprocessable_entity
-      return
-    end
-  
     @groq_response = fetch_groq_response(question)
-  
-    if @groq_response.present?
-      render json: { response: @groq_response }, status: :ok
-    else
-      render json: { error: "No response from Groq." }, status: :internal_server_error
-    end
-  end
-  
+    render json: { response: @groq_response }
+  end  
   
   private
   # Use callbacks to share common setup or constraints between actions.

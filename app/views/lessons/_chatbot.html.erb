@@ -2,12 +2,12 @@
   <h3 class="font-semibold text-lg mb-2">Chat Assistant</h3>
 
   <% if @lesson %>
-    <form id="chatbot_form" action="<%= chatbot_ask_lesson_path(@lesson) %>" method="post">
+    <form id="chatbot_form" action="<%= chatbot_ask_lesson_path(@lesson) %>" method="post" data-turbo="false">
       <label for="question">Ask a question:</label>
       <input type="text" id="question" name="question" class="form-input" required>
       <button type="submit" class="btn btn-primary">Ask</button>
     </form>
-    <div id="response-container" class="response-display"></div>
+    <div id="response-container" class="response-display mt-2"></div>
   <% else %>
     <p>Lesson not found. Cannot use Chat Assistant.</p>
   <% end %>
@@ -15,38 +15,38 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("chatbot_form");
-  const responseContainer = document.getElementById("response-container");
+    // Select the form and response container
+    const form = document.getElementById("chatbot_form");
+    const responseContainer = document.getElementById("response-container");
 
-  if (form) {
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+    if (form) {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent default form submission
 
-      const formData = new FormData(form);
-      const question = formData.get("question");
+        const formData = new FormData(form);
+        const question = formData.get("question");
 
-      try {
-        const response = await fetch(form.action, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-          },
-          body: JSON.stringify({ question }),
-        });
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+            },
+            body: JSON.stringify({ question }),
+          });
 
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+
+          const data = await response.json();
+          responseContainer.textContent = data.response || "No response from chatbot.";
+        } catch (error) {
+          console.error("Error fetching chatbot response:", error);
+          responseContainer.textContent = "An error occurred. Please try again.";
         }
-
-        const data = await response.json();
-        responseContainer.textContent = data.response || "No response from chatbot.";
-      } catch (error) {
-        console.error("Error fetching chatbot response:", error);
-        responseContainer.textContent = "An error occurred. Please try again.";
-      }
-    });
-  }
-});
-
+      });
+    }
+  });
 </script>
