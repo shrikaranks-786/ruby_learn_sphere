@@ -1,72 +1,39 @@
 <header class="header">
   <div class="header-pattern"></div>
-  
+
   <!-- Desktop Header -->
   <div class="desktop-header">
     <div class="header-content">
-      <% if user_signed_in? %>
-        <nav class="nav-menu">
-          <%= link_to root_path, class: "nav-link" do %>
-            Courses
-          <% end %>
-          <%= link_to chatbot_path, class: "nav-link" do %>
-            Ai assitant
-          <% end %>
-        </nav>
-      <% end %>
-      
+      <!-- Navigation Menu -->
+      <nav class="nav-menu">
+        <%= link_to root_path, class: "nav-link" do %>
+          Courses
+        <% end %>
+        <%= link_to chatbot_path, class: "nav-link" do %>
+          AI Assistant
+        <% end %>
+      </nav>
 
+      <!-- Logo -->
       <%= link_to root_path, class: "logo-link" do %>
         <%= image_tag "logo.png", class: "logo", alt: "Logo" %>
       <% end %>
-      
-      <div class="user-actions">
-        <% if user_signed_in? %>
-          <%= button_to destroy_user_session_path, method: :delete, class: "sign-out-button", data: { turbo_confirm: "Are you sure you want to sign out?" } do %>
-            Sign Out
-          <% end %>
-          <%= link_to edit_user_registration_path, class: "profile-link" do %>
-            <svg xmlns="http://www.w3.org/2000/svg" class="profile-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          <% end %>
-        <% else %>
-          <%= link_to "Sign In", new_user_session_path, class: "sign-in-button" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
 
-  <!-- Mobile Header -->
-  <div class="mobile-header">
-    <div class="mobile-header-content">
-      <%= link_to root_path, class: "mobile-logo-link" do %>
-        <%= image_tag "logo.png", class: "mobile-logo", alt: "Logo" %>
-      <% end %>
-      
-      <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="mobile-menu-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-
-    <div id="mobile-menu" class="mobile-menu">
-      <div class="mobile-menu-items">
-        <%= link_to "Courses", root_path, class: "mobile-menu-link" %>
-        <% if user_signed_in? %>
-          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "mobile-menu-button", data: { turbo_confirm: "Are you sure you want to sign out?" } %>
-          <%= link_to edit_user_registration_path, class: "mobile-menu-link" do %>
-            <span class="mobile-menu-profile">
-              <svg xmlns="http://www.w3.org/2000/svg" class="mobile-profile-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>Profile</span>
-            </span>
+      <!-- Dropdown Menu -->
+      <div class="dropdown">
+        <button class="dropbtn">Users</button>
+        <div class="dropdown-content">
+          <% if user_signed_in? %>
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "dropdown-item", data: { turbo_confirm: "Are you sure you want to sign out?" } %>
+            <%= link_to "Admin Login", new_admin_session_path, class: "dropdown-item" %>
+          <% elsif admin_signed_in? %>
+            <%= button_to "Sign Out", destroy_admin_session_path, method: :delete, class: "dropdown-item", data: { turbo_confirm: "Are you sure you want to sign out?" } %>
+            <%= link_to "User Login", new_user_session_path, class: "dropdown-item" %>
+          <% else %>
+            <%= link_to "User Login", new_user_session_path, class: "dropdown-item" %>
+            <%= link_to "Admin Login", new_admin_session_path, class: "dropdown-item" %>
           <% end %>
-        <% else %>
-          <%= link_to "Sign In", new_user_session_path, class: "mobile-menu-link" %>
-        <% end %>
+        </div>
       </div>
     </div>
   </div>
@@ -77,6 +44,7 @@
     background-image: linear-gradient(to right, #9333ea, #ec4899, #ef4444);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     position: relative;
+    padding: 1rem 1.5rem;
   }
 
   .header-pattern {
@@ -86,29 +54,12 @@
     opacity: 0.1;
   }
 
-  .desktop-header {
-    display: none;
-  }
-
-  @media (min-width: 640px) {
-    .desktop-header {
-      display: block;
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      position: relative;
-      z-index: 10;
-    }
-  }
-
   .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 10;
   }
 
   .nav-menu {
@@ -134,166 +85,64 @@
     transition: transform 0.3s;
   }
 
-  .logo-link:hover {
-    transform: scale(1.1);
-  }
-
   .logo {
-    height: 3.5rem;
+    height: 3rem; /* Adjusted size */
     width: auto;
     filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
 
-  .user-actions {
-    display: flex;
-    align-items: center;
+  .dropdown {
+    position: relative;
+    display: inline-block;
   }
 
-  .user-actions > * + * {
-    margin-left: 1.5rem;
-  }
-
-  .sign-out-button, .sign-in-button {
+  .dropbtn {
     background-color: #facc15;
     color: #6b21a8;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
     font-weight: bold;
-    padding: 0.5rem 1.5rem;
+    border: none;
+    cursor: pointer;
     border-radius: 9999px;
     transition: all 0.3s;
   }
 
-  .sign-out-button:hover, .sign-in-button:hover {
+  .dropbtn:hover {
     background-color: #fde047;
     transform: scale(1.05);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  .profile-link {
-    color: white;
-    transition: color 0.3s, transform 0.3s;
-  }
-
-  .profile-link:hover {
-    color: #fde047;
-    transform: scale(1.1);
-  }
-
-  .profile-icon {
-    height: 2rem;
-    width: 2rem;
-  }
-
-  .mobile-header {
-    position: relative;
-    z-index: 10;
-  }
-
-  @media (min-width: 640px) {
-    .mobile-header {
-      display: none;
-    }
-  }
-
-  .mobile-header-content {
-    padding: 0.75rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .mobile-logo-link {
-    transition: transform 0.3s;
-  }
-
-  .mobile-logo-link:hover {
-    transform: scale(1.1);
-  }
-
-  .mobile-logo {
-    height: 3rem;
-    width: auto;
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  }
-
-  .mobile-menu-button {
-    color: white;
-    transition: color 0.3s, transform 0.3s;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .mobile-menu-button:hover {
-    color: #fde047;
-    transform: scale(1.1);
-  }
-
-  .mobile-menu-icon {
-    height: 2rem;
-    width: 2rem;
-  }
-
-  .mobile-menu {
+  .dropdown-content {
     display: none;
-    padding: 0.5rem 1rem 1rem;
-    background-color: #6b21a8;
-    border-bottom-right-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-top: 2px;
   }
 
-  .mobile-menu.show {
-    display: block;
-  }
-
-  .mobile-menu-items {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .mobile-menu-items > * + * {
-    margin-top: 0.75rem;
-  }
-
-  .mobile-menu-link, .mobile-menu-button {
-    display: block;
-    padding: 0.5rem 0;
-    font-size: 1.125rem;
-    font-weight: bold;
-    color: white;
-    transition: color 0.3s;
-    text-align: left;
+  .dropdown-content .dropdown-item {
     width: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
+    color: #6b21a8;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
   }
 
-  .mobile-menu-link:hover, .mobile-menu-button:hover {
-    color: #fde047;
+  .dropdown-content .dropdown-item:hover {
+    background-color: #fde047;
   }
 
-  .mobile-menu-profile {
-    display: flex;
-    align-items: center;
-  }
-
-  .mobile-profile-icon {
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-right: 0.5rem;
+  .dropdown:hover .dropdown-content {
+    display: block;
   }
 </style>
-
-<script>
-  document.addEventListener('turbo:load', function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener('click', function() {
-        mobileMenu.classList.toggle('show');
-      });
-    }
-  });
-</script>
