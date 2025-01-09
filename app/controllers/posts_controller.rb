@@ -4,7 +4,12 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @categories = Post.distinct.pluck(:category) # Get unique categories
+    if params[:category].present?
+      @posts = Post.where(category: params[:category])
+    else
+      @posts = Post.all
+    end
     # @user_unlocked_courses = current_user&.course_users&.pluck(:course_id)
     @user_started_courses = current_user&.lesson_users&.joins(:lesson)&.pluck(:post_id)&.uniq
     if @user_started_courses.present?

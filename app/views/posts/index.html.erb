@@ -5,6 +5,18 @@
 
   <% content_for :title, "Posts" %>
 
+  <div class="flex space-x-4 mb-6">
+    <% if @categories.present? %>
+      <% @categories.each do |category| %>
+        <%= link_to posts_path(category: category), 
+            class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" do %>
+          <%= category %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>No categories available.</p>
+    <% end %>
+  </div>
 
   <div id="posts" class="min-w-full flex flex-wrap justify-center gap-14 pb-6">
     <% @posts.each do |post| %>
