@@ -2,11 +2,6 @@
   <div class="flex flex-col lg:flex-row-reverse w-full justify-start lg:justify-end pb-6">
     <div>
       <%= render "chatbot" %>
-      <% if @groq_response.present? %>
-        <p><%= @groq_response %></p>
-      <% else %>
-        <p class="text-gray-500">No response from the chatbot yet. Ask a question to begin!</p>
-      <% end %>
     </div>
   </div>
 
