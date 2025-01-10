@@ -12,6 +12,7 @@ class LessonsController < ApplicationController
     @completed_lessons = current_user.lesson_users.where(completed:true).pluck(:lesson_id)
     @post = @lesson.post
     @lesson = Lesson.find(params[:id])
+    @comments = @post.comments.includes(:user, :lesson)
   end
 
   # GET /lessons/new

@@ -30,6 +30,12 @@ Rails.application.routes.draw do
       post :chatbot_ask
     end
   end
+
+  resources :posts do
+    resources :lessons do
+      resources :comments, only: :create
+    end
+  end
   
 
   # Health check route

@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :post_users
   has_and_belongs_to_many :categories
   has_many :users, through: :post_users
+  has_many :comments, dependent: :destroy
 
   has_rich_text :description
   has_rich_text :premium_description
