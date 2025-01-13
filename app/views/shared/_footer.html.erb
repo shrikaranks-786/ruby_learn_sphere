@@ -1,0 +1,115 @@
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Learsphere</h3>
+      <p>Empowering learning through technology</p>
+    </div>
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><%= link_to "Home", "#" %></li>
+        <li><%= link_to "Courses", "#" %></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Connect</h3>
+      <ul>
+        <li><%= link_to "Facebook", "#" %></li>
+        <li><%= link_to "Twitter", "#" %></li>
+        <li><%= link_to "LinkedIn", "#" %></li>
+        <li><%= link_to "Instagram", "#" %></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Newsletter</h3>
+      <p>Subscribe to our newsletter for updates</p>
+      <%= form_tag("#", method: :post, class: "newsletter-form") do %>
+        <%= email_field_tag :email, nil, placeholder: "Enter your email", required: true %>
+        <%= submit_tag "Subscribe" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; <%= Time.now.year %> Learsphere. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 2rem 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-section {
+    flex: 1;
+    margin: 1rem;
+    min-width: 200px;
+  }
+
+  .footer-section h3 {
+    color: #3498db;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section a {
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-section a:hover {
+    color: #3498db;
+  }
+
+  .newsletter-form {
+    display: flex;
+    margin-top: 1rem;
+  }
+
+  .newsletter-form input[type="email"] {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .newsletter-form input[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    transition: background-color 0.3s ease;
+  }
+
+  .newsletter-form input[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #34495e;
+  }
+</style>
