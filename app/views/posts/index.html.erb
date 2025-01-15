@@ -30,6 +30,15 @@
     </div>
   </div>
 
+  <%= form_with url: posts_path, method: :get, local: true, html: { class: "search-form" } do %>
+    <div>
+      <%= label_tag :query, "Search by Title:" %>
+      <%= text_field_tag :query, @query, placeholder: "Enter title..." %>
+      <%= submit_tag "Search" ,class: "mt"%>
+    </div>
+  <% end %>
+
+
   <div id="posts" class="min-w-full flex flex-wrap justify-center gap-14 pb-6">
     <% @posts.each do |post| %>
       <%= render post %>
@@ -125,5 +134,49 @@
     .price-filter {
       justify-content: center;
     }
+  }
+  .search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+  .search-form label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .search-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .search-form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-form input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  .mt{
+    margin-top: 10px;
   }
 </style>

@@ -18,6 +18,13 @@ class PostsController < ApplicationController
       @posts = @posts.order(price: :desc)
     end
 
+    @query = params[:query]
+    @posts = if @query.present?
+               Post.where(title: @query) # Exact match for title
+             else
+               Post.all
+             end
+
     @user_started_courses = current_user&.lesson_users&.joins(:lesson)&.pluck(:post_id)&.uniq
     if @user_started_courses.present?
       @user_course_progresses = @user_started_courses.map do |post_id|
