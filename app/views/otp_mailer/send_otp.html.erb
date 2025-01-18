@@ -1,0 +1,13 @@
+# app/views/otp_mailer/send_otp.html.erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello <%= @user.email %></h1>
+    <p>Your OTP for login is: <strong><%= @otp %></strong></p>
+    <p>This OTP will expire in 5 minutes.</p>
+    <p>If you didn't request this OTP, please ignore this email.</p>
+  </body>
+</html>

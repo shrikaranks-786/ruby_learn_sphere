@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :admins
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+  
+  devise_scope :user do
+    post '/users/generate_otp', to: 'users/otp#generate_otp'
+    post '/users/verify_otp', to: 'users/otp#verify_otp'
+  end
 
   resources :posts do
     resources :lessons do

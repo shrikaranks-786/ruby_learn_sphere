@@ -14,8 +14,17 @@ Rails.application.configure do
 
   # Enable server timing.
   config.server_timing = true
-  config.action_mailer.default_url_options = { 
-host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                 587,
+    domain:               "example.com",
+    user_name:           "shrikaranks@gmail.com",
+    password:            "pqsq qnmq cwlu yhxg",
+    authentication:      "plain",
+    enable_starttls_auto: true
+  }
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Enable/disable Action Controller caching. By default Action Controller caching is disabled.
   # Run rails dev:cache to toggle Action Controller caching.

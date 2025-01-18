@@ -305,6 +305,10 @@ Devise.setup do |config|
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
 
+  config.otp_mandatory = false  # Set to true if you want to make OTP mandatory
+  config.otp_authentication_timeout = 5.minutes
+  config.otp_drift_window = 3
+
   # ==> Configuration for :registerable
 
   # When set to false, does not sign a user in automatically after their password is
