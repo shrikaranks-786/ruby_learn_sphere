@@ -44,7 +44,7 @@
         </div>
       <% end %>
 
-      <% unless @user_course_progresses&.find { |p| p[:post_id] == @post.id } %>
+      <% if @post.paid_for_course == false %>
         <%= button_to "Unlock Course", 
             post_unlocks_path(@post), 
             method: :post, 
@@ -54,7 +54,6 @@
   </div>
 </div>
 
-<!-- Inline CSS -->
 <style>
   .btn-primary {
     background-color: #4f46e5;

@@ -39,7 +39,7 @@ class Post < ApplicationRecord
   def average_rating
     ratings.average(:score)&.round(2) || 0
   end
-  
+
   def increment_unlock_count!
     increment!(:unlock_count)
   end

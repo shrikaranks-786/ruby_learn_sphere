@@ -4,7 +4,8 @@ class UnlocksController < ApplicationController
 
   def create
     @post.increment_unlock_count!
-    redirect_to @post, notice: 'Course unlocked successfully!'
+    @post.update(paid_for_course: true)
+    redirect_to @post, notice: "Course unlocked successfully!"
   end
 
   private

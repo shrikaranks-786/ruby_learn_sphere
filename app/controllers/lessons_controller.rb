@@ -65,13 +65,10 @@ class LessonsController < ApplicationController
   def unlock_course
     @post = Post.find(params[:post_id])
 
-    # Create or update the user's access to the post
     current_user.posts << @post unless current_user.posts.include?(@post)
 
-    # Update the paid_for_course attribute
     @post.update(paid_for_course: true)
 
-    # Reload the post to get the updated attributes
     @post.reload
 
     respond_to do |format|

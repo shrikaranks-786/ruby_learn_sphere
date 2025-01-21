@@ -91,14 +91,14 @@ class PostsController < ApplicationController
 
   def fetch_popular_courses
     Post.joins(:ratings)
-        .group('posts.id')
-        .select('posts.*, AVG(ratings.score) as avg_rating')
-        .order('AVG(ratings.score) DESC')
+        .group("posts.id")
+        .select("posts.*, AVG(ratings.score) as avg_rating")
+        .order("AVG(ratings.score) DESC")
         .limit(3)
   end
 
   def fetch_most_bought_courses
-    Post.where('unlock_count > 0')
+    Post.where("unlock_count > 0")
         .order(unlock_count: :desc)
         .limit(3)
   end
