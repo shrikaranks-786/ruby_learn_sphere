@@ -1,15 +1,16 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[show edit update destroy]
 
-  # GET /posts or /posts.json
   def index
-    @categories = Post.distinct.pluck(:category) # Get unique categories
-    if params[:category].present?
-      @posts = Post.where(category: params[:category])
-    else
-      @posts = Post.all
-    end
+    @categories = Post.distinct.pluck(:category)
+    @trending_courses = fetch_trending_courses
+    @popular_courses = fetch_popular_courses
+    @most_bought_courses = fetch_most_bought_courses
+
+    @posts = Post.all
+
+    @posts = @posts.where(category: params[:category]) if params[:category].present?
 
     case params[:price_order]
     when "low_to_high"
@@ -19,11 +20,7 @@ class PostsController < ApplicationController
     end
 
     @query = params[:query]
-    @posts = if @query.present?
-               Post.where(title: @query) # Exact match for title
-             else
-               Post.all
-             end
+    @posts = Post.where(title: @query) if @query.present?
 
     @user_started_courses = current_user&.lesson_users&.joins(:lesson)&.pluck(:post_id)&.uniq
     if @user_started_courses.present?
@@ -35,21 +32,17 @@ class PostsController < ApplicationController
     end
   end
 
-  # GET /posts/1 or /posts/1.json
   def show
     @completed_lessons = current_user&.lesson_users&.joins(:lesson)&.where(completed: true, lessons: { post: @post })&.pluck(:lesson_id)
   end
 
-  # GET /posts/new
   def new
     @post = Post.new
   end
 
-  # GET /posts/1/edit
   def edit
   end
 
-  # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
 
@@ -64,7 +57,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -77,7 +69,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy!
 
@@ -88,13 +79,35 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.expect(post: [ :title, :description ])
-    end
+  def fetch_trending_courses
+    trending_category_ids = Post.trending_categories.pluck(:id)
+
+    Post.joins(:categories)
+        .where(categories: { id: trending_category_ids })
+        .distinct
+        .limit(3)
+  end
+
+  def fetch_popular_courses
+    Post.joins(:ratings)
+        .group('posts.id')
+        .select('posts.*, AVG(ratings.score) as avg_rating')
+        .order('AVG(ratings.score) DESC')
+        .limit(3)
+  end
+
+  def fetch_most_bought_courses
+    Post.where('unlock_count > 0')
+        .order(unlock_count: :desc)
+        .limit(3)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :description, :category, :price)
+  end
 end

@@ -1,0 +1,43 @@
+<div class="bg-white shadow-lg rounded-lg overflow-hidden">
+  <% if post.image.attached? %>
+    <%= image_tag post.image, class: "w-full h-48 object-cover" %>
+  <% end %>
+  
+  <div class="p-6">
+    <h3 class="text-xl font-bold mb-2"><%= post.title %></h3>
+    
+    <div class="mb-3">
+      <% post.categories.each do |category| %>
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          <%= category.name %>
+        </span>
+      <% end %>
+    </div>
+
+    <% if post.description.present? %>
+      <div class="text-gray-600 mb-4 text-sm">
+        <%= truncate(strip_tags(post.description.to_s), length: 100) %>
+      </div>
+    <% end %>
+
+    <div class="flex items-center justify-between mb-4">
+      <% if post.price.present? %>
+        <span class="text-lg font-bold">₹<%= post.price %></span>
+      <% end %>
+      
+      <div class="flex items-center">
+        <div class="text-yellow-400 mr-2">
+          <% post.average_rating.to_i.times do %>
+            ★
+          <% end %>
+          <% (5 - post.average_rating.to_i).times do %>
+            <span class="text-gray-300">★</span>
+          <% end %>
+        </div>
+        <span class="text-sm text-gray-600">
+          <%= post.average_rating %> (<%= post.ratings.count %>)
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

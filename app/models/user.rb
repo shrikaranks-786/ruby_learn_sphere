@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :post_users, dependent: :destroy
   has_many :posts, through: :post_users
   has_many :comments, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   def generate_otp
     new_otp = SecureRandom.random_number(100000..999999).to_s

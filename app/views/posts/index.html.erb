@@ -44,6 +44,43 @@
       <%= render post %>
     <% end %>
   </div>
+
+  <% if @trending_courses.present? %>
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Trending Courses</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <%= render partial: 'course_card', collection: @trending_courses, as: :post %>
+      </div>
+    </section>
+  <% end %>
+
+  <!-- Popular Courses Section -->
+  <% if @popular_courses.present? %>
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Popular Courses</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <%= render partial: 'course_card', collection: @popular_courses, as: :post %>
+      </div>
+    </section>
+  <% end %>
+
+  <!-- Most Enrolled Courses Section -->
+  <% if @most_bought_courses.present? %>
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Most Enrolled Courses</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <%= render partial: 'course_card', collection: @most_bought_courses, as: :post %>
+      </div>
+    </section>
+  <% end %>
+
+  <!-- All Courses Section -->
+  <section>
+    <h2 class="text-2xl font-bold mb-6">All Courses</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <%= render partial: 'course_card', collection: @posts, as: :post %>
+    </div>
+  </section>
 </div>
 
 <style>

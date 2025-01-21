@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_17_144243) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_100621) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -136,6 +136,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_17_144243) do
     t.boolean "paid_for_course"
     t.string "category"
     t.decimal "price"
+    t.integer "unlock_count", default: 0
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "score"
+    t.integer "post_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_ratings_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_ratings_on_user_id_and_post_id", unique: true
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -180,4 +192,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_17_144243) do
   add_foreign_key "lessons", "posts"
   add_foreign_key "post_users", "posts"
   add_foreign_key "post_users", "users"
+  add_foreign_key "ratings", "posts"
+  add_foreign_key "ratings", "users"
 end

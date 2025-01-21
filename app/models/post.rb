@@ -1,12 +1,13 @@
 class Post < ApplicationRecord
   has_one_attached :image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [ 100, 100 ]
+    attachable.variant :thumb, resize_to_limit: [100, 100]
   end
   has_many :lessons, dependent: :destroy
   has_many :post_users
   has_and_belongs_to_many :categories
   has_many :users, through: :post_users
   has_many :comments, dependent: :destroy
+  has_many :ratings, dependent: :destroy
 
   has_rich_text :description
   has_rich_text :premium_description
@@ -33,5 +34,21 @@ class Post < ApplicationRecord
     else
       self.lessons.order(:position).first
     end
+  end
+
+  def average_rating
+    ratings.average(:score)&.round(2) || 0
+  end
+  
+  def increment_unlock_count!
+    increment!(:unlock_count)
+  end
+
+  def self.trending_categories
+    Category.joins(:posts)
+           .select('categories.*, COUNT(posts.id) as posts_count')
+           .group('categories.id')
+           .order('COUNT(posts.id) DESC')
+           .limit(3)
   end
 end

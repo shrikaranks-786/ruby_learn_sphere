@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :posts do
+    resources :ratings, only: [:create]
+    resources :unlocks, only: [:create]
+  end
+
   namespace :admin do
     resources :posts do
       resources :lessons
