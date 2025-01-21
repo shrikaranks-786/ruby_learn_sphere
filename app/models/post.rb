@@ -44,11 +44,21 @@ class Post < ApplicationRecord
     increment!(:unlock_count)
   end
 
-  def self.trending_categories
-    Category.joins(:posts)
-           .select('categories.*, COUNT(posts.id) as posts_count')
-           .group('categories.id')
-           .order('COUNT(posts.id) DESC')
-           .limit(3)
+  validates :tag, presence: true
+
+  def self.trending_by_tags(limit = 3)
+    
+    tag_counts = group(:tag).count.sort_by { |_tag, count| -count }
+    
+    trending_tags = tag_counts.map(&:first)
+    
+    trending_posts = []
+    trending_tags.each do |tag|
+      posts_with_tag = where(tag: tag)
+      trending_posts.concat(posts_with_tag)
+      break if trending_posts.size >= limit
+    end
+    
+    trending_posts.take(limit)
   end
 end

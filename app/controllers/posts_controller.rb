@@ -81,12 +81,7 @@ class PostsController < ApplicationController
   private
 
   def fetch_trending_courses
-    trending_category_ids = Post.trending_categories.pluck(:id)
-
-    Post.joins(:categories)
-        .where(categories: { id: trending_category_ids })
-        .distinct
-        .limit(3)
+    Post.trending_by_tags(3)
   end
 
   def fetch_popular_courses
