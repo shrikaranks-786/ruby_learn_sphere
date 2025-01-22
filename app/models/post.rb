@@ -12,14 +12,12 @@ class Post < ApplicationRecord
   has_rich_text :description
   has_rich_text :premium_description
   
-  # Strengthen tag validation
   validates :tag, presence: true
   validates :tag, format: { with: /\A[a-zA-Z0-9\s,]+\z/, 
                           message: "only allows letters, numbers, spaces, and commas" }
   before_validation :normalize_tag
   
   def normalize_tag
-    # Remove extra spaces and normalize format
     self.tag = tag.strip.downcase if tag.present?
   end
   
@@ -56,29 +54,24 @@ class Post < ApplicationRecord
   end
   
   def self.trending_by_tags(limit = 3)
-    # Only consider posts with valid tags
     valid_posts = where.not(tag: [nil, ''])
     
     return [] if valid_posts.empty?
-    
-    # Get all tags and their post counts
+   
     tag_counts = valid_posts.group(:tag).count
-    
-    # Calculate trending score for each tag
+
     tag_scores = {}
     tag_counts.each do |tag, count|
-      # Base score is the number of posts with this tag
+     
       base_score = count
       
-      # Get total unlock count for posts with this tag
+      
       total_unlocks = valid_posts.where(tag: tag).sum(:unlock_count)
       
-      # Calculate recency score (posts from last 30 days get higher weight)
       recent_posts_count = valid_posts.where(tag: tag)
                                     .where('created_at > ?', 30.days.ago)
                                     .count
-      
-      # Final tag score combines post count, unlocks, and recency
+
       tag_scores[tag] = (base_score * 2) + 
                        (total_unlocks * 1.5) + 
                        (recent_posts_count * 3)

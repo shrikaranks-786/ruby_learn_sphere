@@ -38,49 +38,40 @@
     </div>
   <% end %>
 
-
-  <div id="posts" class="min-w-full flex flex-wrap justify-center gap-14 pb-6">
-    <% @posts.each do |post| %>
-      <%= render post %>
-    <% end %>
-  </div>
+  <section class="course-section all-courses">
+    <div class="course-grid">
+      <%= render partial: 'course_card', collection: @posts, as: :post %>
+    </div>
+  </section>
 
   <% if @trending_courses.present? %>
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6">Trending Courses</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section class="course-section trending-courses">
+      <h2>Trending Courses</h2>
+      <div class="course-grid">
         <%= render partial: 'course_card', collection: @trending_courses, as: :post %>
       </div>
     </section>
   <% end %>
 
-  <!-- Popular Courses Section -->
   <% if @popular_courses.present? %>
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6">Popular Courses</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section class="course-section popular-courses">
+      <h2>Popular Courses</h2>
+      <div class="course-grid">
         <%= render partial: 'course_card', collection: @popular_courses, as: :post %>
       </div>
     </section>
   <% end %>
 
-  <!-- Most Enrolled Courses Section -->
   <% if @most_bought_courses.present? %>
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6">Most Enrolled Courses</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section class="course-section most-enrolled-courses">
+      <h2>Most Enrolled Courses</h2>
+      <div class="course-grid">
         <%= render partial: 'course_card', collection: @most_bought_courses, as: :post %>
       </div>
     </section>
   <% end %>
 
-  <!-- All Courses Section -->
-  <section>
-    <h2 class="text-2xl font-bold mb-6">All Courses</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <%= render partial: 'course_card', collection: @posts, as: :post %>
-    </div>
-  </section>
+  
 </div>
 
 <style>
@@ -172,17 +163,18 @@
       justify-content: center;
     }
   }
+
   .search-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
 
   .search-form label {
     font-size: 16px;
@@ -213,7 +205,52 @@
     background-color: #0056b3;
   }
 
-  .mt{
+  .mt {
     margin-top: 10px;
   }
+
+  /* New styles for course sections */
+  .course-section {
+    margin-bottom: 3rem;
+  }
+
+  .course-section h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .course-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .course-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .post-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .post-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
 </style>
+
