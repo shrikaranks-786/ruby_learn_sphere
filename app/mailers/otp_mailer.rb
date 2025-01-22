@@ -8,4 +8,13 @@ class OtpMailer < ApplicationMailer
       subject: "Your Login OTP"
     )
   end
+
+  def send_admin_otp(admin, otp)
+    @admin = admin
+    @otp = otp
+    mail(
+      to: @admin.email,
+      subject: "Admin Login OTP"
+    )
+  end
 end

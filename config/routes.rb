@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :admins
-  
+  devise_for :admins, controllers: {
+    sessions: 'admin/sessions' # Updated to singular 'admin'
+  }
+
+  devise_scope :admin do
+    post '/admin/generate_otp', to: 'admin/otp#generate_otp'
+    post '/admin/verify_otp', to: 'admin/otp#verify_otp'
+  end
+    
   devise_for :users, controllers: {
     sessions: "users/sessions"
   }
