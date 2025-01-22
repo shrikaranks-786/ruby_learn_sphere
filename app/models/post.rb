@@ -76,19 +76,16 @@ class Post < ApplicationRecord
                        (total_unlocks * 1.5) + 
                        (recent_posts_count * 3)
     end
-    
-    # Sort tags by score and get posts
+
     trending_posts = []
     tag_scores.sort_by { |_, score| -score }.each do |tag, _|
-      # Get top posts for this tag, ordered by unlock count and creation date
       tag_posts = valid_posts.where(tag: tag)
                             .order(unlock_count: :desc, created_at: :desc)
-                            .limit(2)  # Get top 2 posts per tag to ensure variety
+                            .limit(2)
       
       trending_posts.concat(tag_posts)
     end
     
-    # Return unique trending posts, limited to requested amount
     trending_posts.uniq.take(limit)
   end
 end
