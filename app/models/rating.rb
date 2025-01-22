@@ -1,7 +1,7 @@
 class Rating < ApplicationRecord
-  belongs_to :post
   belongs_to :user
-  
+  belongs_to :post
+
   validates :score, presence: true, inclusion: { in: 1..5 }
-  validates :post_id, uniqueness: { scope: :user_id, message: "You've already rated this course" }
+  validates :user_id, uniqueness: { scope: :post_id, message: "has already rated this course" }
 end

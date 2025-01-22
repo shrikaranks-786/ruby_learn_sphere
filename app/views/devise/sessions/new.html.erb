@@ -52,3 +52,87 @@
     <% end %>
   </div>
 </div>
+
+
+<script>
+let otpMode = false;
+function toggleOTP() {
+  const email = document.getElementById('user_email').value;
+  if (!email) {
+    alert('Please enter your email first');
+    return;
+  }
+  otpMode = !otpMode;
+  const otpField = document.getElementById('otp_field');
+  const passwordField = document.getElementById('password_field');
+  const otpButton = document.getElementById('otp_button');
+  const submitButton = document.querySelector('input[type="submit"]');
+  if (otpMode) {
+    // Switch to OTP mode
+    passwordField.style.display = 'none';
+    otpField.style.display = 'flex';
+    otpButton.textContent = 'Use Password Instead';
+    otpButton.classList.remove('bg-blue-600');
+    otpButton.classList.add('bg-gray-600');
+    submitButton.value = 'Verify OTP';
+    
+    // Request OTP
+    fetch('/users/generate_otp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+      },
+      body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        alert(data.message);
+      } else {
+        alert(data.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error sending OTP');
+    });
+  } else {
+    // Switch back to password mode
+    passwordField.style.display = 'flex';
+    otpField.style.display = 'none';
+    otpButton.textContent = 'Login with OTP';
+    otpButton.classList.remove('bg-gray-600');
+    otpButton.classList.add('bg-blue-600');
+    submitButton.value = 'Log in';
+  }
+}
+// Add this function to handle form submission
+document.getElementById('login_form').addEventListener('submit', function(e) {
+  if (otpMode) {
+    e.preventDefault();
+    const email = document.getElementById('user_email').value;
+    const otp = document.getElementById('user_otp').value;
+    fetch('/users/verify_otp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+      },
+      body: JSON.stringify({ email: email, otp: otp })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        window.location.href = data.redirect_url;
+      } else {
+        alert(data.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error verifying OTP');
+    });
+  }
+});
+</script>
